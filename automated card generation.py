@@ -1,5 +1,8 @@
 import openpyxl as op
 import win32com.client
+import os
+
+# initial data in the excel sheets
 
 fullname_to_find = 'Ahmed Yameen'
 designation_to_find = 'Senior Superintendent'
@@ -7,13 +10,17 @@ mobile_to_find = '9916696'
 phone_to_find = '7497851'
 email_to_find = 'ahmed.yameen'
 
+# The data we are going to capture
+
 fullname = input("Enter Staff Name: ")
 designation = input("Enter Designation: ")
 mobile = input("Mobile: (960) ")
 phone = input("Phone: (960) ")
 email = input("Customs E-mail (part before @customs.gov.mv): ")
 
-wb = op.load_workbook(r"S:\study\python\excel template.xlsx")
+# editing the template
+
+wb = op.load_workbook(r"excel template.xlsx")
 ws = wb['pages']
 i = 0
 for r in range(1 , ws.max_row + 1):
@@ -30,12 +37,19 @@ for r in range(1 , ws.max_row + 1):
         if s != None and email_to_find in s: 
             ws.cell(r,c).value = s.replace(email_to_find,email)
             i += 1
+
+# All changes have been made
+
 wb.save('cards.xlsx')
+
+# save a copy
 
 o = win32com.client.Dispatch("Excel.Application")
 o.Visible = False
 wb_path = r'S:\study\python\cards.xlsx'
 wb = o.Workbooks.Open(wb_path)
+
+# opne the copy to create a pdf
 
 ws_index_list = [1] 
 path_to_pdf = r'C:\Users\1217\Desktop\Sample.pdf'
@@ -43,3 +57,9 @@ path_to_pdf = r'C:\Users\1217\Desktop\Sample.pdf'
 wb.WorkSheets(ws_index_list).Select()
 wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
 
+
+# now have to delete the copy card.xlsx if it exists so the template can be reused again
+if os.path.exists('cards.xlsx'):
+    os.remove('cards.xlsx')
+else:
+    print('cards.xlsx does not exist')
