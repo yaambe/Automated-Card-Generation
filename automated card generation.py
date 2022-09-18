@@ -40,13 +40,14 @@ for r in range(1 , ws.max_row + 1):
 # All changes have been made
 
 wb.save('cards.xlsx')
+wb.close()
 
 # save a copy
 o = win32com.client.Dispatch("Excel.Application")
 o.Visible = False
 wb_path = r'F:\Git\Automated-Card-Generation\cards.xlsx'
 
-wb = o.Workbooks.Open(wb_path)
+new = o.Workbooks.Open(wb_path)
 
 # open the copy to create a pdf
 
@@ -54,9 +55,12 @@ ws_index_list = [1]
 
 # fetch the directory to save result
 
-path_to_pdf =  f'F:\\Git\\Automated-Card-Generation\\{fullname}.pdf'
+path_to_pdf =  f'C:\\Users\\1217\\Desktop\\{fullname}.pdf'
 
-wb.WorkSheets(ws_index_list).Select()
-wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
-wb.close()
+new.WorkSheets(ws_index_list).Select()
+new.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
+
+
+
+
 
