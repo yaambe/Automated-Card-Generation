@@ -51,16 +51,16 @@ wb.save('cards.xlsx')
 o = win32com.client.Dispatch("Excel.Application")
 o.Visible = False
 wb_path = r'F:\Git\Automated-Card-Generation\cards.xlsx'
+
 wb = o.Workbooks.Open(wb_path)
 
 # open the copy to create a pdf
 
 ws_index_list = [1] 
-path_to_pdf = path + f'{fullname} - {designation}.pdf'
+path_to_pdf = path + f"{fullname} - {designation}.pdf"
 
 wb.WorkSheets(ws_index_list).Select()
 wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
-
 
 # now have to delete the copy card.xlsx if it exists so the template can be reused again, needs to wait til pdf is generated as well before removing (2 seconds)
 time.sleep(2)
