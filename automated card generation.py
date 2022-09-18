@@ -46,13 +46,13 @@ wb.save('cards.xlsx')
 
 o = win32com.client.Dispatch("Excel.Application")
 o.Visible = False
-wb_path = r'S:\study\python\cards.xlsx'
+wb_path = r'cards.xlsx'
 wb = o.Workbooks.Open(wb_path)
 
 # opne the copy to create a pdf
 
 ws_index_list = [1] 
-path_to_pdf = r'C:\Users\1217\Desktop\Sample.pdf'
+path_to_pdf = r'Sample.pdf'
 
 wb.WorkSheets(ws_index_list).Select()
 wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
