@@ -14,11 +14,11 @@ email_to_find = 'ahmed.yameen'
 
 # The data we are going to capture
 
-fullname = input("Enter Staff Name: ")
+fullname = input("Enter Staff Name (*best length is below 15 characters): ")
 designation = input("Enter Designation: ")
 mobile = input("Mobile: (960) ")
 phone = input("Phone: (960) ")
-email = input("Customs E-mail (part before @customs.gov.mv): ")
+email = input("Customs E-mail (part before @customs.gov.mv) (*best length is below 15 characters): ")
 
 # fetch the directory to save result
 
@@ -48,10 +48,9 @@ for r in range(1 , ws.max_row + 1):
 wb.save('cards.xlsx')
 
 # save a copy
-
 o = win32com.client.Dispatch("Excel.Application")
 o.Visible = False
-wb_path = r'cards.xlsx'
+wb_path = r'F:\Git\Automated-Card-Generation\cards.xlsx'
 wb = o.Workbooks.Open(wb_path)
 
 # open the copy to create a pdf
@@ -63,7 +62,7 @@ wb.WorkSheets(ws_index_list).Select()
 wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
 
 
-# now have to delete the copy card.xlsx if it exists so the template can be reused again, but also we must wait like 2 seconds for the file to be created
+# now have to delete the copy card.xlsx if it exists so the template can be reused again, needs to wait til pdf is generated as well before removing (2 seconds)
 time.sleep(2)
 if os.path.exists('cards.xlsx'):
     os.remove('cards.xlsx')
