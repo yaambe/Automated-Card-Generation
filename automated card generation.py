@@ -1,8 +1,6 @@
 import openpyxl as op
 import win32com.client
 import os
-from tkinter.filedialog import askdirectory
-import time
 
 # initial data in the excel sheets
 
@@ -19,10 +17,6 @@ designation = input("Enter Designation: ")
 mobile = input("Mobile: (960) ")
 phone = input("Phone: (960) ")
 email = input("Customs E-mail (part before @customs.gov.mv) (*best length is below 15 characters): ")
-
-# fetch the directory to save result
-
-path = askdirectory(title= "Please navigate to the folder to save the PDF")
 
 # editing the template
 wb = op.load_workbook(r"excel template.xlsx")
@@ -56,15 +50,13 @@ wb = o.Workbooks.Open(wb_path)
 
 # open the copy to create a pdf
 
-ws_index_list = [1] 
-path_to_pdf = path + f"{fullname} - {designation}.pdf"
+ws_index_list = [1]
+
+# fetch the directory to save result
+
+path_to_pdf =  f'F:\\Git\\Automated-Card-Generation\\{fullname}.pdf'
 
 wb.WorkSheets(ws_index_list).Select()
 wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
+wb.close()
 
-# now have to delete the copy card.xlsx if it exists so the template can be reused again, needs to wait til pdf is generated as well before removing (2 seconds)
-time.sleep(2)
-if os.path.exists('cards.xlsx'):
-    os.remove('cards.xlsx')
-else:
-    print('cards.xlsx does not exist')
