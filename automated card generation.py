@@ -2,8 +2,7 @@ import openpyxl as op
 import win32com.client
 import os
 from tkinter.filedialog import askdirectory
-
-path = askdirectory(title='SELECT THE FOLDER IN WHICH THE ITEMS ARE LOCATED TO BE RENAMED') #Shows dialog box and return the path
+import time
 
 # initial data in the excel sheets
 
@@ -58,13 +57,14 @@ wb = o.Workbooks.Open(wb_path)
 # open the copy to create a pdf
 
 ws_index_list = [1] 
-path_to_pdf = path
+path_to_pdf = path + f'{fullname} - {designation}.pdf'
 
 wb.WorkSheets(ws_index_list).Select()
 wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
 
 
-# now have to delete the copy card.xlsx if it exists so the template can be reused again
+# now have to delete the copy card.xlsx if it exists so the template can be reused again, but also we must wait like 2 seconds for the file to be created
+time.sleep(2)
 if os.path.exists('cards.xlsx'):
     os.remove('cards.xlsx')
 else:

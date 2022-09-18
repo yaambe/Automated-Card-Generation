@@ -10,3 +10,4 @@
  ** if they have read only access to sql08 staff and designation and contact tables, we could have them fetch it from db **
  - pip install os
  - pip install tkinter (to get from tkinter.filedialog import askdirectory, so they can save where they'd like)
+ - pip install time
