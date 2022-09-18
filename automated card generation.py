@@ -1,6 +1,9 @@
 import openpyxl as op
 import win32com.client
 import os
+from tkinter.filedialog import askdirectory
+
+path = askdirectory(title='SELECT THE FOLDER IN WHICH THE ITEMS ARE LOCATED TO BE RENAMED') #Shows dialog box and return the path
 
 # initial data in the excel sheets
 
@@ -18,8 +21,11 @@ mobile = input("Mobile: (960) ")
 phone = input("Phone: (960) ")
 email = input("Customs E-mail (part before @customs.gov.mv): ")
 
-# editing the template
+# fetch the directory to save result
 
+path = askdirectory(title= "Please navigate to the folder to save the PDF")
+
+# editing the template
 wb = op.load_workbook(r"excel template.xlsx")
 ws = wb['pages']
 i = 0
@@ -49,10 +55,10 @@ o.Visible = False
 wb_path = r'cards.xlsx'
 wb = o.Workbooks.Open(wb_path)
 
-# opne the copy to create a pdf
+# open the copy to create a pdf
 
 ws_index_list = [1] 
-path_to_pdf = r'Sample.pdf'
+path_to_pdf = path
 
 wb.WorkSheets(ws_index_list).Select()
 wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
